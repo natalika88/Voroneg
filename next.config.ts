@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
 
+const repoName = "Voroneg";
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const basePath = isGithubPages ? `/${repoName}` : "";
+
 const nextConfig: NextConfig = {
+  output: isGithubPages ? "export" : undefined,
+  basePath,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
+  trailingSlash: isGithubPages,
   images: {
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
   },
 };

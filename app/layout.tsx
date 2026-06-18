@@ -28,7 +28,11 @@ export const metadata: Metadata = {
   title: "Её величество — Женщина | Женский ретрит в Храме Параскевы Пятницы",
   description:
     "Однодневный женский ретрит в Храме Параскевы Пятницы, Воронежская область, село Хващевка. Пространство тишины, благословения и женской глубины.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(
+    process.env.GITHUB_PAGES === "true"
+      ? "https://natalika88.github.io/Voroneg"
+      : "http://localhost:3000"
+  ),
   openGraph: {
     title: "Её величество — Женщина",
     description:
