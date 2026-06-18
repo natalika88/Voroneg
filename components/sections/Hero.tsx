@@ -1,74 +1,73 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { siteContent } from "@/lib/constants";
+import { getAssetPath } from "@/lib/assets";
 import { Button } from "@/components/ui/Button";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { GlowBackground, DecorativeDivider, ScrollIndicator } from "@/components/ui/DecorativeElements";
 
 const { hero } = siteContent;
 
 export function Hero() {
+  const bgSrc = getAssetPath(hero.image.src);
+
   return (
     <section
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
       aria-label="Главный экран"
     >
-      {/* Background image / placeholder */}
-      <div className="absolute inset-0">
-        <ImagePlaceholder
-          src={hero.image.src}
-          alt={hero.image.alt}
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={bgSrc}
+          alt=""
           fill
           priority
-          variant="hero"
+          unoptimized
           sizes="100vw"
           className="object-cover object-center"
+          aria-hidden
         />
       </div>
 
-      {/* Layered light overlays — текст читаем, фото видно */}
-      <div className="absolute inset-0 bg-gradient-to-b from-warm-white/20 via-ivory/35 to-ivory/80" aria-hidden="true" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ivory/90 via-transparent to-warm-white/15" aria-hidden="true" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(250,247,242,0.2)_75%)]" aria-hidden="true" />
-      <div className="absolute inset-0 hero-light-ray opacity-60" aria-hidden="true" />
+      {/* Overlays — above image, below content */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-warm-white/25 via-ivory/40 to-ivory/85" aria-hidden="true" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-ivory/95 via-transparent to-warm-white/20" aria-hidden="true" />
+      <div
+        className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_15%,rgba(250,247,242,0.25)_70%)]"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 z-[1] hero-light-ray opacity-50" aria-hidden="true" />
 
-      <GlowBackground intensity="medium" />
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <GlowBackground intensity="medium" />
+      </div>
 
-      {/* Central luminous glow */}
       <motion.div
-        className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,700px)] h-[min(70vw,550px)] rounded-full blur-3xl pointer-events-none animate-glow-pulse"
+        className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2] w-[min(90vw,700px)] h-[min(70vw,550px)] rounded-full blur-3xl pointer-events-none animate-glow-pulse"
         style={{
           background:
-            "radial-gradient(ellipse, rgba(212,197,168,0.45) 0%, rgba(232,223,208,0.2) 40%, transparent 70%)",
+            "radial-gradient(ellipse, rgba(212,197,168,0.4) 0%, rgba(232,223,208,0.15) 40%, transparent 70%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Delicate gold accent lines */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-gold/40 to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-ivory to-transparent"
+        className="absolute top-0 left-1/2 -translate-x-1/2 z-[2] w-px h-32 bg-gradient-to-b from-gold/40 to-transparent pointer-events-none"
         aria-hidden="true"
       />
 
+      {/* Content — always on top */}
       <div className="relative z-10 mx-auto max-w-4xl px-5 sm:px-6 py-28 sm:py-32 md:py-40 text-center">
         <motion.div
           initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
-            animate={{ opacity: 1, letterSpacing: "0.35em" }}
-            transition={{ duration: 1.4, delay: 0.2 }}
-            className="mb-5 sm:mb-6 text-[10px] sm:text-xs uppercase text-text-accent font-medium"
-          >
+          <p className="mb-5 sm:mb-6 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-text-accent font-medium">
             {hero.eyebrow}
-          </motion.p>
+          </p>
 
           <h1
             className="heading-serif text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.08] text-balance mb-3 sm:mb-4"
@@ -91,7 +90,10 @@ export function Hero() {
 
           <div className="flex flex-col gap-2 sm:gap-3 mb-4 sm:mb-6">
             {hero.meta.map((line) => (
-              <p key={line} className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-text-muted">
+              <p
+                key={line}
+                className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-text-muted"
+              >
                 {line}
               </p>
             ))}

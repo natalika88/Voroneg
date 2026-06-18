@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { getAssetPath } from "@/lib/assets";
 
 interface ImagePlaceholderProps {
   src: string;
@@ -13,6 +14,8 @@ interface ImagePlaceholderProps {
   sizes?: string;
   aspectRatio?: string;
   variant?: "default" | "hero";
+  /** Hide caption text on fallback — for background images */
+  silent?: boolean;
 }
 
 function DesignerPlaceholder({
@@ -21,12 +24,14 @@ function DesignerPlaceholder({
   className = "",
   aspectRatio,
   variant = "default",
+  silent = false,
 }: {
   label: string;
   alt: string;
   className?: string;
   aspectRatio?: string;
   variant?: "default" | "hero";
+  silent?: boolean;
 }) {
   return (
     <div
@@ -46,29 +51,32 @@ function DesignerPlaceholder({
         aria-hidden="true"
       />
 
-      {/* Corner ornaments */}
-      <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-gold/30" aria-hidden="true" />
-      <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-gold/30" aria-hidden="true" />
-      <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-gold/30" aria-hidden="true" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-gold/30" aria-hidden="true" />
+      {!silent && (
+        <>
+          <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-gold/30" aria-hidden="true" />
+          <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-gold/30" aria-hidden="true" />
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-gold/30" aria-hidden="true" />
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-gold/30" aria-hidden="true" />
 
-      <div
-        className={`relative z-10 flex flex-col items-center gap-4 px-8 text-center ${variant === "hero" ? "py-16" : "py-10"}`}
-      >
-        <div className="w-16 h-px shimmer-line" aria-hidden="true" />
-        <div className="w-2 h-2 rotate-45 border border-gold/50" aria-hidden="true" />
-        <span
-          className={`font-display text-gold-muted tracking-wide leading-snug ${
-            variant === "hero" ? "text-xl sm:text-2xl md:text-3xl" : "text-base sm:text-lg md:text-xl"
-          }`}
-        >
-          {label}
-        </span>
-        <p className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-text-muted/70">
-          Фото скоро появится
-        </p>
-        <div className="w-16 h-px shimmer-line" aria-hidden="true" />
-      </div>
+          <div
+            className={`relative z-10 flex flex-col items-center gap-4 px-8 text-center ${variant === "hero" ? "py-16" : "py-10"}`}
+          >
+            <div className="w-16 h-px shimmer-line" aria-hidden="true" />
+            <div className="w-2 h-2 rotate-45 border border-gold/50" aria-hidden="true" />
+            <span
+              className={`font-display text-gold-muted tracking-wide leading-snug ${
+                variant === "hero" ? "text-xl sm:text-2xl md:text-3xl" : "text-base sm:text-lg md:text-xl"
+              }`}
+            >
+              {label}
+            </span>
+            <p className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-text-muted/70">
+              Фото скоро появится
+            </p>
+            <div className="w-16 h-px shimmer-line" aria-hidden="true" />
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -83,9 +91,11 @@ export function ImagePlaceholder({
   sizes = "(max-width: 768px) 100vw, 50vw",
   aspectRatio,
   variant = "default",
+  silent = false,
 }: ImagePlaceholderProps) {
   const [hasError, setHasError] = useState(false);
   const label = placeholder ?? alt;
+  const resolvedSrc = getAssetPath(src);
 
   if (hasError) {
     return (
@@ -95,6 +105,7 @@ export function ImagePlaceholder({
         className={`${fill ? "absolute inset-0" : ""} ${className}`}
         aspectRatio={aspectRatio}
         variant={variant}
+        silent={silent}
       />
     );
   }
@@ -102,9 +113,10 @@ export function ImagePlaceholder({
   if (fill) {
     return (
       <Image
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         fill
+        unoptimized
         className={`object-cover ${className}`}
         sizes={sizes}
         priority={priority}
@@ -119,9 +131,10 @@ export function ImagePlaceholder({
       style={aspectRatio ? { aspectRatio } : undefined}
     >
       <Image
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         fill
+        unoptimized
         className="object-cover"
         sizes={sizes}
         priority={priority}
