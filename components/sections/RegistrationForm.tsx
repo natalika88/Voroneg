@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
+import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { FadeInView } from "@/components/ui/FadeInView";
@@ -61,11 +62,7 @@ export function RegistrationForm() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-
-    // Mock submit — replace with real API endpoint later
-    // await fetch('/api/register', { method: 'POST', body: JSON.stringify(formData) });
     await new Promise((resolve) => setTimeout(resolve, 1200));
-
     setIsSubmitting(false);
     setSubmitted(true);
   };
@@ -78,23 +75,23 @@ export function RegistrationForm() {
   };
 
   return (
-    <section id={form.id} className="relative py-24 md:py-32 overflow-hidden">
+    <Section id={form.id} tone="warm">
       <GlowBackground />
-      <div className="relative mx-auto max-w-2xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-2xl px-5 sm:px-6 md:px-8">
         <SectionHeading title={form.title} subtitle={form.subtitle} />
 
         <FadeInView delay={0.2}>
-          <div className="relative p-8 md:p-12 bg-ivory/90 border border-gold/20 rounded-sm glow-gold">
+          <div className="card-premium glow-gold p-6 sm:p-8 md:p-12">
             <AnimatePresence mode="wait">
               {submitted ? (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-8"
+                  className="text-center py-6 sm:py-8"
                 >
-                  <div className="w-16 h-px bg-gold/50 mx-auto mb-6" aria-hidden="true" />
-                  <p className="font-display text-xl md:text-2xl text-text-dark leading-relaxed">
+                  <div className="w-16 h-px shimmer-line mx-auto mb-6" aria-hidden="true" />
+                  <p className="heading-serif text-lg sm:text-xl md:text-2xl leading-[1.5]">
                     {form.successMessage}
                   </p>
                 </motion.div>
@@ -107,12 +104,12 @@ export function RegistrationForm() {
                   noValidate
                   aria-label="Форма записи на ретрит"
                 >
-                  <div className="space-y-6">
+                  <div className="space-y-5 sm:space-y-6">
                     {(["name", "phone", "messenger"] as const).map((field) => (
                       <div key={field}>
                         <label
                           htmlFor={field}
-                          className="block text-xs uppercase tracking-[0.15em] text-text-accent mb-2"
+                          className="block text-[10px] sm:text-xs uppercase tracking-[0.15em] text-text-accent mb-2"
                         >
                           {form.fields[field]}
                         </label>
@@ -122,7 +119,7 @@ export function RegistrationForm() {
                           value={formData[field]}
                           onChange={(e) => handleChange(field, e.target.value)}
                           placeholder={fieldPlaceholders[field]}
-                          className={`w-full px-4 py-3.5 bg-cream/50 border rounded-sm text-text placeholder:text-text-muted/40 transition-colors duration-300 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/20 ${
+                          className={`w-full min-h-[48px] px-4 py-3.5 bg-warm-white/70 border rounded-sm text-text text-[15px] placeholder:text-text-muted/40 transition-colors duration-300 focus:outline-none focus:border-gold/45 focus:ring-1 focus:ring-gold/15 ${
                             errors[field] ? "border-rose-dust/60" : "border-gold/15"
                           }`}
                           aria-invalid={!!errors[field]}
@@ -139,7 +136,7 @@ export function RegistrationForm() {
                     <div>
                       <label
                         htmlFor="comment"
-                        className="block text-xs uppercase tracking-[0.15em] text-text-accent mb-2"
+                        className="block text-[10px] sm:text-xs uppercase tracking-[0.15em] text-text-accent mb-2"
                       >
                         {form.fields.comment}
                       </label>
@@ -149,17 +146,17 @@ export function RegistrationForm() {
                         onChange={(e) => handleChange("comment", e.target.value)}
                         placeholder={fieldPlaceholders.comment}
                         rows={3}
-                        className="w-full px-4 py-3.5 bg-cream/50 border border-gold/15 rounded-sm text-text placeholder:text-text-muted/40 transition-colors duration-300 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/20 resize-none"
+                        className="w-full px-4 py-3.5 bg-warm-white/70 border border-gold/15 rounded-sm text-text text-[15px] placeholder:text-text-muted/40 transition-colors duration-300 focus:outline-none focus:border-gold/45 focus:ring-1 focus:ring-gold/15 resize-none"
                       />
                     </div>
                   </div>
 
-                  <div className="mt-8">
+                  <div className="mt-7 sm:mt-8">
                     <Button
                       type="submit"
                       variant="primary"
                       disabled={isSubmitting}
-                      className="w-full uppercase tracking-widest text-xs"
+                      className="w-full uppercase tracking-[0.2em] text-xs"
                     >
                       {isSubmitting ? "Отправка..." : form.button}
                     </Button>
@@ -170,6 +167,6 @@ export function RegistrationForm() {
           </div>
         </FadeInView>
       </div>
-    </section>
+    </Section>
   );
 }
