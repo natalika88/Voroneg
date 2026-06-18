@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #faf7f2;
+  --color-cream: #f5f0e8;
+  --color-pearl: #ede8df;
+  --color-champagne: #e8dfd0;
+  --color-sand: #d4c4a8;
+  --color-gold: #c4a574;
+  --color-gold-light: #d9c9a0;
+  --color-gold-muted: #b8a07a;
+  --color-rose-dust: #d4b8b0;
+  --color-olive-soft: #b8b8a0;
+  --color-caramel: #c9a882;
+  --color-text: #4a4035;
+  --color-text-muted: #7a6f63;
+  --color-text-dark: #3d3530;
+  --color-text-accent: #9a7d5a;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-manrope), "Manrope", system-ui, sans-serif;
+  --font-accent: var(--font-lora), "Lora", Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory text-text antialiased;
+    font-family: var(--font-body);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212, 197, 168, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(212, 184, 176, 0.08), transparent);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background-color: rgba(196, 165, 116, 0.25);
+    color: var(--color-text-dark);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glow-gold {
+    box-shadow:
+      0 0 40px rgba(196, 165, 116, 0.12),
+      0 0 80px rgba(196, 165, 116, 0.06);
+  }
+
+  .glass-soft {
+    background: rgba(250, 247, 242, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .shimmer-line {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(196, 165, 116, 0.4) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      background-position: 200% 0;
+    }
+    50% {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
