@@ -15,18 +15,22 @@ export function Footer() {
           </h2>
 
           <p className="text-sm text-text-muted max-w-md leading-relaxed">
+            {footer.subtitle}
+          </p>
+
+          <p className="text-sm text-text-muted/80">
             {footer.location}
           </p>
 
           <a
-            href={footer.contact.href}
+            href={footer.contactHref}
             className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide uppercase"
           >
-            {footer.contact.label}
+            {footer.contactLabel}
           </a>
 
           <p className="text-xs text-text-muted/60 mt-4">
-            {footer.copyright}
+            © {new Date().getFullYear()} {footer.title}. Все права защищены.
           </p>
         </div>
       </div>

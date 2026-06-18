@@ -5,11 +5,11 @@ import { siteContent } from "@/lib/constants";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StaggerContainer, staggerItem } from "@/components/ui/FadeInView";
 
-const { forWhom } = siteContent;
+const { audience } = siteContent;
 
 export function ForWhom() {
   return (
-    <section id={forWhom.id} className="relative py-24 md:py-32 bg-cream/40 overflow-hidden">
+    <section id={audience.id} className="relative py-24 md:py-32 bg-cream/40 overflow-hidden">
       <div
         className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
@@ -20,10 +20,10 @@ export function ForWhom() {
       />
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <SectionHeading title={forWhom.title} />
+        <SectionHeading title={audience.title} />
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-          {forWhom.items.map((item, index) => (
+          {audience.items.map((item, index) => (
             <motion.div
               key={index}
               variants={staggerItem}
@@ -35,7 +35,9 @@ export function ForWhom() {
               >
                 <span className="w-1.5 h-1.5 rotate-45 border border-gold/70" />
               </span>
-              <p className="text-sm md:text-base text-text-muted leading-relaxed">{item}</p>
+              <p className="text-sm md:text-base text-text-muted leading-relaxed">
+                {item}
+              </p>
             </motion.div>
           ))}
         </StaggerContainer>

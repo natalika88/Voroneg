@@ -2,14 +2,12 @@ import { siteContent } from "@/lib/constants";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { GlowBackground } from "@/components/ui/DecorativeElements";
 
 const { about } = siteContent;
 
 export function About() {
   return (
     <section id={about.id} className="relative py-24 md:py-32 overflow-hidden">
-      <GlowBackground />
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeading title={about.title} align="left" className="!mx-0 !text-left" />
 
@@ -32,7 +30,6 @@ export function About() {
                 <ImagePlaceholder
                   src={about.image.src}
                   alt={about.image.alt}
-                  placeholder={about.image.placeholder}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />

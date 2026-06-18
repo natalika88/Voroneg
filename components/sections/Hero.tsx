@@ -6,16 +6,15 @@ import { Button } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { GlowBackground, DecorativeDivider, ScrollIndicator } from "@/components/ui/DecorativeElements";
 
-const { hero } = siteContent;
+const { hero, about } = siteContent;
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" aria-label="Главный экран">
       <div className="absolute inset-0">
         <ImagePlaceholder
-          src={hero.image.src}
-          alt={hero.image.alt}
-          placeholder={hero.image.placeholder}
+          src={about.image.src}
+          alt={about.image.alt}
           fill
           priority
           sizes="100vw"
@@ -42,29 +41,37 @@ export function Hero() {
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="mb-6 text-xs uppercase tracking-[0.35em] text-text-accent font-medium">
-            {hero.location} · {hero.date}
+            {hero.eyebrow}
           </p>
 
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-text-dark leading-[1.1] tracking-tight text-balance mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-text-dark leading-[1.1] tracking-tight text-balance mb-4">
             {hero.title}
           </h1>
 
-          <DecorativeDivider className="mb-8" />
-
-          <p className="font-display text-xl sm:text-2xl md:text-3xl font-light text-text-muted mb-8 text-balance">
+          <p className="font-display text-xl sm:text-2xl md:text-3xl font-light text-text-muted mb-6 text-balance">
             {hero.subtitle}
           </p>
 
-          <p className="font-accent text-base md:text-lg text-text-muted/90 max-w-2xl mx-auto mb-12 leading-relaxed italic">
+          <DecorativeDivider className="mb-8" />
+
+          <p className="font-accent text-base md:text-lg text-text-muted/90 max-w-2xl mx-auto mb-6 leading-relaxed italic">
             {hero.description}
           </p>
 
+          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-text-muted">
+            {hero.meta.join(" · ")}
+          </p>
+
+          <p className="mb-12 text-sm text-text-accent tracking-wide">
+            {hero.note}
+          </p>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button href="#registration" variant="primary" className="w-full sm:w-auto uppercase tracking-widest text-xs">
-              {hero.ctaPrimary}
+            <Button href="#apply" variant="primary" className="w-full sm:w-auto uppercase tracking-widest text-xs">
+              {hero.primaryCta}
             </Button>
             <Button href="#program" variant="secondary" className="w-full sm:w-auto uppercase tracking-widest text-xs">
-              {hero.ctaSecondary}
+              {hero.secondaryCta}
             </Button>
           </div>
         </motion.div>

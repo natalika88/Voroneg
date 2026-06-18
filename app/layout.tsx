@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope, Lora } from "next/font/google";
+import { siteContent } from "@/lib/constants";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -24,22 +25,22 @@ const lora = Lora({
   display: "swap",
 });
 
+const { seo, brand } = siteContent;
+
 export const metadata: Metadata = {
-  title: "Её величество — Женщина | Женский ретрит в Храме Параскевы Пятницы",
-  description:
-    "Однодневный женский ретрит в Храме Параскевы Пятницы, Воронежская область, село Хващевка. Пространство тишины, благословения и женской глубины.",
+  title: seo.title,
+  description: seo.description,
   metadataBase: new URL(
     process.env.GITHUB_PAGES === "true"
       ? "https://natalika88.github.io/Voroneg"
       : "http://localhost:3000"
   ),
   openGraph: {
-    title: "Её величество — Женщина",
-    description:
-      "Однодневный женский ретрит в Храме Параскевы Пятницы. Пространство тишины, благословения и женской глубины.",
-    locale: "ru_RU",
+    title: brand.name,
+    description: seo.description,
+    locale: seo.locale,
     type: "website",
-    siteName: "Её величество — Женщина",
+    siteName: brand.name,
   },
   alternates: {
     canonical: "/",

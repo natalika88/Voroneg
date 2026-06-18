@@ -11,7 +11,7 @@ export function Guide() {
     <section id={guide.id} className="relative py-24 md:py-32 overflow-hidden">
       <GlowBackground />
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <SectionHeading title={`${guide.title} — ${guide.name}`} />
+        <SectionHeading title={guide.title} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-5xl mx-auto">
           <FadeInView>
@@ -27,7 +27,6 @@ export function Guide() {
                 <ImagePlaceholder
                   src={guide.image.src}
                   alt={guide.image.alt}
-                  placeholder={guide.image.placeholder}
                   fill
                   sizes="(max-width: 1024px) 80vw, 400px"
                 />
@@ -44,30 +43,19 @@ export function Guide() {
               </FadeInView>
             ))}
 
-            {(guide.social.instagram || guide.social.telegram) && (
-              <FadeInView delay={0.3} className="flex gap-6 pt-4">
-                {guide.social.instagram && (
-                  <a
-                    href={guide.social.instagram}
-                    className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Instagram
-                  </a>
-                )}
-                {guide.social.telegram && (
-                  <a
-                    href={guide.social.telegram}
-                    className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Telegram
-                  </a>
-                )}
-              </FadeInView>
-            )}
+            <FadeInView delay={0.3} className="flex gap-6 pt-4">
+              {guide.socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide"
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                >
+                  {social.label}
+                </a>
+              ))}
+            </FadeInView>
           </div>
         </div>
       </div>

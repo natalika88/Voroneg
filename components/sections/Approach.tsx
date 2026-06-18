@@ -5,6 +5,9 @@ import { DecorativeDivider } from "@/components/ui/DecorativeElements";
 
 const { approach } = siteContent;
 
+const [lead, ...rest] = approach.text.split(". ");
+const body = rest.join(". ");
+
 export function Approach() {
   return (
     <section id={approach.id} className="relative py-24 md:py-36 bg-cream/30">
@@ -16,19 +19,16 @@ export function Approach() {
         </FadeInView>
 
         <div className="space-y-8">
-          {approach.paragraphs.map((paragraph, index) => (
-            <FadeInView key={index} delay={index * 0.15}>
-              <p
-                className={`leading-relaxed text-balance ${
-                  index === 0
-                    ? "font-display text-2xl md:text-3xl font-light text-text-dark"
-                    : "font-accent text-base md:text-lg text-text-muted italic"
-                }`}
-              >
-                {paragraph}
-              </p>
-            </FadeInView>
-          ))}
+          <FadeInView>
+            <p className="font-display text-2xl md:text-3xl font-light text-text-dark leading-relaxed text-balance">
+              {lead}.
+            </p>
+          </FadeInView>
+          <FadeInView delay={0.15}>
+            <p className="font-accent text-base md:text-lg text-text-muted italic leading-relaxed text-balance">
+              {body}
+            </p>
+          </FadeInView>
         </div>
 
         <FadeInView delay={0.3}>

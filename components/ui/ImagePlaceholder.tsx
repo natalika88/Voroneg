@@ -6,7 +6,7 @@ import { useState } from "react";
 interface ImagePlaceholderProps {
   src: string;
   alt: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   fill?: boolean;
   priority?: boolean;
@@ -25,6 +25,7 @@ export function ImagePlaceholder({
   aspectRatio,
 }: ImagePlaceholderProps) {
   const [hasError, setHasError] = useState(false);
+  const label = placeholder ?? alt;
 
   if (hasError) {
     return (
@@ -45,7 +46,7 @@ export function ImagePlaceholder({
         <div className="relative z-10 flex flex-col items-center gap-3 px-6 text-center">
           <div className="w-12 h-px bg-gold/40" aria-hidden="true" />
           <span className="font-display text-lg md:text-xl text-gold-muted tracking-wide">
-            {placeholder}
+            {label}
           </span>
           <div className="w-12 h-px bg-gold/40" aria-hidden="true" />
         </div>

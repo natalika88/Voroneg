@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 
-const { navigation } = siteContent;
+const { nav, brand } = siteContent;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -37,11 +37,11 @@ export function Header() {
           href="#"
           className="font-display text-lg md:text-xl font-medium text-text-dark tracking-wide hover:text-gold-muted transition-colors"
         >
-          {navigation.brand}
+          {brand.name}
         </a>
 
         <nav className="hidden lg:flex items-center gap-8" aria-label="Основная навигация">
-          {navigation.items.map((item) => (
+          {nav.items.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -50,8 +50,8 @@ export function Header() {
               {item.label}
             </a>
           ))}
-          <Button href="#registration" variant="primary" className="!px-6 !py-2.5 !text-xs uppercase tracking-widest">
-            {navigation.cta}
+          <Button href="#apply" variant="primary" className="!px-6 !py-2.5 !text-xs uppercase tracking-widest">
+            {nav.cta}
           </Button>
         </nav>
 
@@ -81,7 +81,7 @@ export function Header() {
             className="lg:hidden glass-soft border-t border-gold/15 overflow-hidden"
           >
             <nav className="flex flex-col items-center gap-6 py-8 px-5" aria-label="Мобильная навигация">
-              {navigation.items.map((item) => (
+              {nav.items.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -92,12 +92,12 @@ export function Header() {
                 </a>
               ))}
               <Button
-                href="#registration"
+                href="#apply"
                 variant="primary"
                 className="!text-xs uppercase tracking-widest"
                 onClick={() => setMenuOpen(false)}
               >
-                {navigation.cta}
+                {nav.cta}
               </Button>
             </nav>
           </motion.div>

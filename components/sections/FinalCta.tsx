@@ -11,7 +11,6 @@ const { finalCta } = siteContent;
 export function FinalCta() {
   return (
     <section
-      id={finalCta.id}
       className="relative py-28 md:py-40 overflow-hidden"
       aria-label="Приглашение к участию"
     >
@@ -44,22 +43,22 @@ export function FinalCta() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-2xl sm:text-3xl md:text-4xl font-light text-text-dark leading-relaxed text-balance mb-8"
         >
-          {finalCta.text}
+          {finalCta.title}
         </motion.p>
 
         <FadeInView delay={0.2}>
           <p className="font-accent text-base md:text-lg text-text-muted italic mb-10 leading-relaxed">
-            {finalCta.signature}
+            {finalCta.subtitle}
           </p>
         </FadeInView>
 
         <FadeInView delay={0.3}>
           <Button
-            href="#registration"
+            href="#apply"
             variant="primary"
             className="uppercase tracking-widest text-xs"
           >
-            {finalCta.cta}
+            {finalCta.button}
           </Button>
         </FadeInView>
 
