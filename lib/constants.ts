@@ -29,6 +29,10 @@ export const siteContent = {
     primaryCta: "Оставить заявку",
     secondaryCta: "Узнать программу",
     note: "Количество мест ограничено",
+    image: {
+      src: "/images/hero-bg.jpg",
+      alt: "Светлое сакральное пространство — атмосфера ретрита",
+    },
   },
   about: {
     id: "about",

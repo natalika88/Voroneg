@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { GlowBackground, DecorativeDivider, ScrollIndicator } from "@/components/ui/DecorativeElements";
 
-const { hero, about } = siteContent;
+const { hero } = siteContent;
 
 export function Hero() {
   return (
@@ -17,19 +17,20 @@ export function Hero() {
       {/* Background image / placeholder */}
       <div className="absolute inset-0">
         <ImagePlaceholder
-          src={about.image.src}
-          alt={about.image.alt}
+          src={hero.image.src}
+          alt={hero.image.alt}
           fill
           priority
           variant="hero"
           sizes="100vw"
-          className="scale-105"
+          className="object-cover object-center"
         />
       </div>
 
-      {/* Layered light overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-warm-white/30 via-ivory/50 to-ivory" aria-hidden="true" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/20 to-transparent" aria-hidden="true" />
+      {/* Layered light overlays — текст читаем, фото видно */}
+      <div className="absolute inset-0 bg-gradient-to-b from-warm-white/20 via-ivory/35 to-ivory/80" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ivory/90 via-transparent to-warm-white/15" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(250,247,242,0.2)_75%)]" aria-hidden="true" />
       <div className="absolute inset-0 hero-light-ray opacity-60" aria-hidden="true" />
 
       <GlowBackground intensity="medium" />
