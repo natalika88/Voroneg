@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope, Lora } from "next/font/google";
 import { siteContent } from "@/lib/constants";
+import { FloatingContacts } from "@/components/ui/FloatingContacts";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -54,7 +55,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${cormorant.variable} ${manrope.variable} ${lora.variable}`}>
-      <body className="min-h-screen overflow-x-hidden">{children}</body>
+      <body className="min-h-screen overflow-x-hidden">
+        {children}
+        <FloatingContacts />
+      </body>
     </html>
   );
 }

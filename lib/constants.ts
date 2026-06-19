@@ -65,10 +65,12 @@ export const siteContent = {
       {
         src: "/images/source.jpg",
         alt: "Источник рядом с храмом",
+        muted: true,
       },
       {
-        src: "/images/temple-2.jpg",
-        alt: "Территория храма и природа",
+        src: "/images/paraskeva.jpg",
+        alt: "Икона Святой Великомученицы Параскевы Пятницы",
+        muted: true,
       },
     ],
   },
@@ -175,12 +177,17 @@ export const siteContent = {
     fields: {
       name: "Имя",
       phone: "Телефон",
-      messenger: "Telegram / WhatsApp",
       comment: "Комментарий",
     },
+    consentLabel: "Даю согласие на обработку персональных данных",
+    consentError: "Необходимо дать согласие на обработку данных",
+    submitEmail: "olga.levi1979@yandex.ru",
+    submitSubject: "Новая заявка на ретрит — Её величество Женщина",
     button: "Оставить заявку",
     successMessage:
       "Спасибо. Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.",
+    errorMessage:
+      "Не удалось отправить заявку. Попробуйте позже или напишите нам напрямую.",
   },
   finalCta: {
     title:
@@ -188,6 +195,12 @@ export const siteContent = {
     subtitle:
       "Добро пожаловать в пространство тишины, благословения и женской глубины.",
     button: "Хочу участвовать",
+  },
+  floatingContacts: {
+    telegram: {
+      label: "@OlgaSalikhowa",
+      href: "https://t.me/OlgaSalikhowa",
+    },
   },
   footer: {
     title: "Её величество — Женщина",

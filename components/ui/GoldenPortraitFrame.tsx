@@ -3,6 +3,8 @@ import { type ReactNode } from "react";
 interface GoldenPortraitFrameProps {
   children: ReactNode;
   className?: string;
+  aspectClassName?: string;
+  innerClassName?: string;
 }
 
 function CornerOrnament({ className }: { className?: string }) {
@@ -71,7 +73,12 @@ function LaceBorder() {
   );
 }
 
-export function GoldenPortraitFrame({ children, className = "" }: GoldenPortraitFrameProps) {
+export function GoldenPortraitFrame({
+  children,
+  className = "",
+  aspectClassName = "aspect-[3/4]",
+  innerClassName = "",
+}: GoldenPortraitFrameProps) {
   return (
     <div className={`golden-portrait-frame relative ${className}`}>
       <LaceBorder />
@@ -83,7 +90,7 @@ export function GoldenPortraitFrame({ children, className = "" }: GoldenPortrait
       <CornerOrnament className="bottom-0.5 right-0.5 rotate-180" />
       <CornerOrnament className="bottom-0.5 left-0.5 -rotate-90" />
 
-      <div className="golden-portrait-frame__inner relative overflow-hidden aspect-[3/4]">
+      <div className={`golden-portrait-frame__inner relative overflow-hidden ${aspectClassName} ${innerClassName}`}>
         {children}
       </div>
     </div>

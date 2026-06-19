@@ -3,6 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { GoldenPortraitFrame } from "@/components/ui/GoldenPortraitFrame";
 
 const { place } = siteContent;
 
@@ -20,26 +21,33 @@ export function Place() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {place.gallery.map((item, index) => (
-            <FadeInView key={item.src} delay={index * 0.12}>
-              <div
-                className={`relative overflow-hidden rounded-sm card-premium !p-0 group ${
-                  index === 0 ? "sm:col-span-2 md:col-span-1 aspect-[4/5]" : "aspect-[4/3]"
-                }`}
+            <FadeInView key={`${item.alt}-${index}`} delay={index * 0.12}>
+              <GoldenPortraitFrame
+                aspectClassName="aspect-[4/5]"
+                innerClassName="rounded-xl"
+                className="group rounded-2xl overflow-hidden"
               >
                 <ImagePlaceholder
                   src={item.src}
                   alt={item.alt}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="transition-transform duration-700 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className={`object-cover object-center transition-all duration-700 group-hover:scale-[1.03] ${
+                    item.muted
+                      ? "saturate-[0.78] brightness-[1.04] contrast-[0.94] sepia-[0.1]"
+                      : ""
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-text-dark/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                {item.muted && (
+                  <div className="absolute inset-0 z-[5] bg-cream/25 mix-blend-multiply pointer-events-none" />
+                )}
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-text-dark/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl" />
+                <div className="absolute bottom-0 left-0 right-0 z-10 p-4 translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
                   <span className="font-display text-sm text-ivory tracking-wide">{item.alt}</span>
                 </div>
-              </div>
+              </GoldenPortraitFrame>
             </FadeInView>
           ))}
         </div>
