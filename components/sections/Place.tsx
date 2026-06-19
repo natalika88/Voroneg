@@ -22,7 +22,10 @@ export function Place() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
-          {place.gallery.map((item, index) => (
+          {place.gallery.map((item, index) => {
+            const isMuted = "muted" in item && item.muted;
+
+            return (
             <FadeInView key={`${item.alt}-${index}`} delay={index * 0.12}>
               <GoldenPortraitFrame
                 aspectClassName="aspect-[4/5]"
@@ -35,12 +38,12 @@ export function Place() {
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
                   className={`object-cover object-center transition-all duration-700 group-hover:scale-[1.03] ${
-                    item.muted
+                    isMuted
                       ? "saturate-[0.78] brightness-[1.04] contrast-[0.94] sepia-[0.1]"
                       : ""
                   }`}
                 />
-                {item.muted && (
+                {isMuted && (
                   <div className="absolute inset-0 z-[5] bg-cream/25 mix-blend-multiply pointer-events-none" />
                 )}
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-text-dark/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl" />
@@ -49,7 +52,8 @@ export function Place() {
                 </div>
               </GoldenPortraitFrame>
             </FadeInView>
-          ))}
+            );
+          })}
         </div>
       </div>
     </Section>

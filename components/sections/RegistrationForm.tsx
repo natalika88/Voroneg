@@ -95,7 +95,7 @@ export function RegistrationForm() {
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) {
+    if (field !== "comment" && errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
