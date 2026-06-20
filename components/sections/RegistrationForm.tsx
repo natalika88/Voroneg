@@ -11,7 +11,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { GlowBackground } from "@/components/ui/DecorativeElements";
-import { DataProtectionNotice } from "@/components/ui/DataProtectionNotice";
 
 const { form, footer } = siteContent;
 const privacyHref = getAssetPath(footer.privacyHref);
@@ -121,8 +120,6 @@ export function RegistrationForm() {
                   noValidate
                   aria-label="Форма записи на ретрит"
                 >
-                  <DataProtectionNotice />
-
                   <input type="hidden" name="_next" value={returnUrl} />
                   <input type="hidden" name="_subject" value={form.submitSubject} />
                   <input type="hidden" name="_template" value="table" />
