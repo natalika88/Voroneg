@@ -193,15 +193,11 @@ export const siteContent = {
     },
     submitEmail: "olga.levi1979@yandex.ru",
     submitSubject: "Новая заявка на ретрит — Её величество Женщина",
-    /** Ключ с https://web3forms.com — приходит на почту, вставьте сюда после регистрации */
-    web3formsAccessKey: "",
     button: "Оставить заявку",
+    submitHint: "После нажатия откроется Telegram — отправьте сообщение, чтобы завершить заявку.",
     successMessage:
-      "Спасибо. Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.",
-    errorMessage:
-      "Не удалось отправить заявку. Напишите нам в Telegram:",
-    setupError:
-      "Форма ещё не настроена. Напишите нам в Telegram:",
+      "Спасибо! Откройте Telegram и нажмите «Отправить», чтобы завершить заявку. Мы свяжемся с вами в ближайшее время.",
+    successTelegramLabel: "Открыть Telegram ещё раз",
   },
   finalCta: {
     title:

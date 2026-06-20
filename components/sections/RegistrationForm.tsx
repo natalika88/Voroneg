@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
+import { buildTelegramApplicationUrl } from "@/lib/telegram";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -34,15 +35,6 @@ interface FormErrors {
   consent?: string;
 }
 
-interface Web3FormsResponse {
-  success?: boolean;
-  message?: string;
-}
-
-function getAccessKey(): string {
-  return process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? form.web3formsAccessKey;
-}
-
 export function RegistrationForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -52,8 +44,7 @@ export function RegistrationForm() {
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [telegramUrl, setTelegramUrl] = useState<string | null>(null);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -64,49 +55,19 @@ export function RegistrationForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitError(null);
     if (!validate()) return;
 
-    const accessKey = getAccessKey();
-    if (!accessKey) {
-      setSubmitError(form.setupError);
-      return;
-    }
+    const url = buildTelegramApplicationUrl(floatingContacts.telegram.href, {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      comment: formData.comment.trim(),
+    });
 
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: form.submitSubject,
-          from_name: "Сайт ретрита",
-          name: formData.name.trim(),
-          phone: formData.phone.trim(),
-          message: formData.comment.trim() || "—",
-        }),
-      });
-
-      const data: Web3FormsResponse | null = await response.json().catch(() => null);
-
-      if (data?.success) {
-        setSubmitted(true);
-        return;
-      }
-
-      setSubmitError(form.errorMessage);
-    } catch {
-      setSubmitError(form.errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setTelegramUrl(url);
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
   };
 
   const handleChange = (field: keyof FormData, value: string) => {
@@ -137,12 +98,22 @@ export function RegistrationForm() {
                   key="success"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-6 sm:py-8"
+                  className="text-center py-6 sm:py-8 space-y-6"
                 >
-                  <div className="w-16 h-px shimmer-line mx-auto mb-6" aria-hidden="true" />
+                  <div className="w-16 h-px shimmer-line mx-auto" aria-hidden="true" />
                   <p className="heading-serif text-lg sm:text-xl md:text-2xl leading-[1.5]">
                     {form.successMessage}
                   </p>
+                  {telegramUrl && (
+                    <a
+                      href={telegramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-sm text-text-accent hover:text-gold transition-colors border-b border-gold/20 hover:border-gold/50 pb-0.5"
+                    >
+                      {form.successTelegramLabel}
+                    </a>
+                  )}
                 </motion.div>
               ) : (
                 <motion.form
@@ -224,28 +195,17 @@ export function RegistrationForm() {
                     )}
                   </div>
 
-                  {submitError && (
-                    <p className="mt-4 text-sm text-rose-dust text-center leading-[1.6]" role="alert">
-                      {submitError}{" "}
-                      <a
-                        href={floatingContacts.telegram.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-text-accent hover:text-gold border-b border-gold/20 hover:border-gold/50 transition-colors"
-                      >
-                        {floatingContacts.telegram.label}
-                      </a>
-                    </p>
-                  )}
+                  <p className="mt-5 text-xs text-text-muted/80 text-center leading-[1.6]">
+                    {form.submitHint}
+                  </p>
 
-                  <div className="mt-7 sm:mt-8">
+                  <div className="mt-5 sm:mt-6">
                     <Button
                       type="submit"
                       variant="primary"
-                      disabled={isSubmitting}
                       className="w-full uppercase tracking-[0.2em] text-xs"
                     >
-                      {isSubmitting ? "Отправка..." : form.button}
+                      {form.button}
                     </Button>
                   </div>
                 </motion.form>
