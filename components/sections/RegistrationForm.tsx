@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
-import { getAssetPath } from "@/lib/assets";
 import { getFormReturnUrl } from "@/lib/site";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,8 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { GlowBackground } from "@/components/ui/DecorativeElements";
 
-const { form, footer } = siteContent;
-const privacyHref = getAssetPath(footer.privacyHref);
+const { form } = siteContent;
 
 const fieldPlaceholders = {
   name: "Ваше имя",
@@ -194,15 +191,7 @@ export function RegistrationForm() {
                         aria-describedby={errors.consent ? "consent-error" : undefined}
                       />
                       <span className="text-sm text-text-muted leading-[1.6] group-hover:text-text transition-colors duration-300">
-                        {form.consentLabel}{" "}
-                        <Link
-                          href={privacyHref}
-                          className="text-text-accent hover:text-gold border-b border-gold/20 hover:border-gold/50 transition-colors"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          ({form.consentLinkText})
-                        </Link>
+                        {form.consentLabel}
                       </span>
                     </label>
                     {errors.consent && (
