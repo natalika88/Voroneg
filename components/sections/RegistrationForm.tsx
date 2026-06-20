@@ -3,14 +3,13 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
-import { getFormReturnUrl } from "@/lib/site";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { GlowBackground } from "@/components/ui/DecorativeElements";
 
-const { form } = siteContent;
+const { form, floatingContacts } = siteContent;
 
 const fieldPlaceholders = {
   name: "Ваше имя",
@@ -35,6 +34,11 @@ interface FormErrors {
   consent?: string;
 }
 
+interface FormSubmitResponse {
+  success?: string;
+  message?: string;
+}
+
 export function RegistrationForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -44,11 +48,10 @@ export function RegistrationForm() {
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const [returnUrl, setReturnUrl] = useState("https://natalika88.github.io/Voroneg/?sent=1#apply");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    setReturnUrl(getFormReturnUrl());
-
     const params = new URLSearchParams(window.location.search);
     if (params.get("sent") === "1") {
       setSubmitted(true);
@@ -65,9 +68,47 @@ export function RegistrationForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    if (!validate()) {
-      e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitError(null);
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${form.submitEmail}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          comment: formData.comment.trim() || "—",
+          _subject: form.submitSubject,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      const data: FormSubmitResponse | null = await response.json().catch(() => null);
+
+      if (data?.success === "true") {
+        setSubmitted(true);
+        return;
+      }
+
+      if (data?.message?.toLowerCase().includes("activation")) {
+        setSubmitError(form.activationError);
+        return;
+      }
+
+      setSubmitError(form.errorMessage);
+    } catch {
+      setSubmitError(form.errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -111,25 +152,10 @@ export function RegistrationForm() {
                   key="form"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  action={`https://formsubmit.co/${form.submitEmail}`}
-                  method="POST"
                   onSubmit={handleSubmit}
                   noValidate
                   aria-label="Форма записи на ретрит"
                 >
-                  <input type="hidden" name="_next" value={returnUrl} />
-                  <input type="hidden" name="_subject" value={form.submitSubject} />
-                  <input type="hidden" name="_template" value="table" />
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input
-                    type="text"
-                    name="_honey"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                  />
-
                   <div className="space-y-5 sm:space-y-6">
                     {(["name", "phone"] as const).map((field) => (
                       <div key={field}>
@@ -201,13 +227,28 @@ export function RegistrationForm() {
                     )}
                   </div>
 
+                  {submitError && (
+                    <p className="mt-4 text-sm text-rose-dust text-center leading-[1.6]" role="alert">
+                      {submitError}{" "}
+                      <a
+                        href={floatingContacts.telegram.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-accent hover:text-gold border-b border-gold/20 hover:border-gold/50 transition-colors"
+                      >
+                        {floatingContacts.telegram.label}
+                      </a>
+                    </p>
+                  )}
+
                   <div className="mt-7 sm:mt-8">
                     <Button
                       type="submit"
                       variant="primary"
+                      disabled={isSubmitting}
                       className="w-full uppercase tracking-[0.2em] text-xs"
                     >
-                      {form.button}
+                      {isSubmitting ? "Отправка..." : form.button}
                     </Button>
                   </div>
                 </motion.form>
