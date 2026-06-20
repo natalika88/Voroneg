@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
+import { getAssetPath } from "@/lib/assets";
 import { getFormReturnUrl } from "@/lib/site";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { GlowBackground } from "@/components/ui/DecorativeElements";
+import { DataProtectionNotice } from "@/components/ui/DataProtectionNotice";
 
-const { form } = siteContent;
+const { form, footer } = siteContent;
+const privacyHref = getAssetPath(footer.privacyHref);
 
 const fieldPlaceholders = {
   name: "Ваше имя",
@@ -117,6 +121,8 @@ export function RegistrationForm() {
                   noValidate
                   aria-label="Форма записи на ретрит"
                 >
+                  <DataProtectionNotice />
+
                   <input type="hidden" name="_next" value={returnUrl} />
                   <input type="hidden" name="_subject" value={form.submitSubject} />
                   <input type="hidden" name="_template" value="table" />
@@ -143,6 +149,7 @@ export function RegistrationForm() {
                           id={field}
                           name={field}
                           type={field === "phone" ? "tel" : "text"}
+                          autoComplete={field === "phone" ? "tel" : "name"}
                           value={formData[field]}
                           onChange={(e) => handleChange(field, e.target.value)}
                           placeholder={fieldPlaceholders[field]}
@@ -190,7 +197,15 @@ export function RegistrationForm() {
                         aria-describedby={errors.consent ? "consent-error" : undefined}
                       />
                       <span className="text-sm text-text-muted leading-[1.6] group-hover:text-text transition-colors duration-300">
-                        {form.consentLabel}
+                        {form.consentLabel}{" "}
+                        <Link
+                          href={privacyHref}
+                          className="text-text-accent hover:text-gold border-b border-gold/20 hover:border-gold/50 transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          ({form.consentLinkText})
+                        </Link>
                       </span>
                     </label>
                     {errors.consent && (

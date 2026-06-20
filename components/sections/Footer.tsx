@@ -1,7 +1,9 @@
 import { siteContent } from "@/lib/constants";
+import { getAssetPath } from "@/lib/assets";
 import { DecorativeDivider } from "@/components/ui/DecorativeElements";
 
 const { footer } = siteContent;
+const privacyHref = getAssetPath(footer.privacyHref);
 
 export function Footer() {
   return (
@@ -26,6 +28,13 @@ export function Footer() {
             className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide uppercase border-b border-gold/20 hover:border-gold/50 pb-0.5 mt-1"
           >
             {footer.contactLabel}
+          </a>
+
+          <a
+            href={privacyHref}
+            className="text-xs sm:text-sm text-text-muted/80 hover:text-gold transition-colors tracking-wide"
+          >
+            {footer.privacyLabel}
           </a>
 
           <p className="text-[11px] sm:text-xs text-text-muted/55 mt-3 sm:mt-4">
