@@ -11,6 +11,7 @@ const { hero } = siteContent;
 
 export function Hero() {
   const bgSrc = getAssetPath(hero.image.src);
+  const mobileBgSrc = getAssetPath(hero.image.mobileSrc);
 
   return (
     <section
@@ -20,13 +21,23 @@ export function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
+          src={mobileBgSrc}
+          alt=""
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-center md:hidden"
+          aria-hidden
+        />
+        <Image
           src={bgSrc}
           alt=""
           fill
           priority
           unoptimized
           sizes="100vw"
-          className="object-cover object-center"
+          className="hidden md:block object-cover object-center"
           aria-hidden
         />
       </div>

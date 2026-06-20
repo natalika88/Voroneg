@@ -31,6 +31,7 @@ export const siteContent = {
     note: "Количество мест ограничено",
     image: {
       src: "/images/hero-bg.jpg",
+      mobileSrc: "/images/hero-bg-mobile.jpg",
       alt: "Светлое сакральное пространство — атмосфера ретрита",
     },
   },
