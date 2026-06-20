@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/lib/constants";
 import { Section } from "@/components/ui/Section";
@@ -34,9 +34,13 @@ interface FormErrors {
   consent?: string;
 }
 
-interface FormSubmitResponse {
-  success?: string;
+interface Web3FormsResponse {
+  success?: boolean;
   message?: string;
+}
+
+function getAccessKey(): string {
+  return process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? form.web3formsAccessKey;
 }
 
 export function RegistrationForm() {
@@ -50,14 +54,6 @@ export function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("sent") === "1") {
-      setSubmitted(true);
-      window.history.replaceState({}, "", `${window.location.pathname}#${form.id}`);
-    }
-  }, []);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -73,34 +69,35 @@ export function RegistrationForm() {
     setSubmitError(null);
     if (!validate()) return;
 
+    const accessKey = getAccessKey();
+    if (!accessKey) {
+      setSubmitError(form.setupError);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${form.submitEmail}`, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: accessKey,
+          subject: form.submitSubject,
+          from_name: "Сайт ретрита",
           name: formData.name.trim(),
           phone: formData.phone.trim(),
-          comment: formData.comment.trim() || "—",
-          _subject: form.submitSubject,
-          _template: "table",
-          _captcha: "false",
+          message: formData.comment.trim() || "—",
         }),
       });
 
-      const data: FormSubmitResponse | null = await response.json().catch(() => null);
+      const data: Web3FormsResponse | null = await response.json().catch(() => null);
 
-      if (data?.success === "true") {
+      if (data?.success) {
         setSubmitted(true);
-        return;
-      }
-
-      if (data?.message?.toLowerCase().includes("activation")) {
-        setSubmitError(form.activationError);
         return;
       }
 
