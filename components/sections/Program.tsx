@@ -5,7 +5,6 @@ import { siteContent } from "@/lib/constants";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PremiumCard } from "@/components/ui/PremiumCard";
-import { FadeInView } from "@/components/ui/FadeInView";
 import { StaggerContainer, staggerItem } from "@/components/ui/FadeInView";
 import { GlowBackground } from "@/components/ui/DecorativeElements";
 
@@ -35,12 +34,6 @@ export function Program() {
             </motion.div>
           ))}
         </StaggerContainer>
-
-        <FadeInView delay={0.3} className="mt-10 sm:mt-12 text-center">
-          <p className="font-accent text-sm md:text-base text-text-muted/80 italic max-w-xl mx-auto leading-[1.75]">
-            {program.note}
-          </p>
-        </FadeInView>
       </div>
     </Section>
   );
