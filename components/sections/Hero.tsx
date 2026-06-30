@@ -100,10 +100,14 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col gap-2 sm:gap-3 mb-4 sm:mb-6">
-            {hero.meta.map((line) => (
+            {hero.meta.map((line, index) => (
               <p
                 key={line}
-                className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-text-muted"
+                className={
+                  index === 1
+                    ? "heading-serif text-xl sm:text-2xl md:text-3xl tracking-wide text-text-dark mt-1 sm:mt-2"
+                    : "text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-text-muted"
+                }
               >
                 {line}
               </p>
