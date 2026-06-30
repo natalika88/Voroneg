@@ -21,12 +21,30 @@ export function Footer() {
 
           <p className="text-sm text-text-muted/80">{footer.location}</p>
 
-          <a
-            href={footer.contactHref}
-            className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide uppercase border-b border-gold/20 hover:border-gold/50 pb-0.5 mt-1"
-          >
-            {footer.contactLabel}
-          </a>
+          <div className="mt-2 sm:mt-4 w-full max-w-md space-y-4 sm:space-y-5">
+            <h3 className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-text-accent font-medium">
+              {footer.contactsTitle}
+            </h3>
+
+            {footer.contacts.map((contact) => (
+              <div key={contact.name} className="space-y-2">
+                <p className="text-sm sm:text-[15px] text-text-dark font-medium">{contact.name}</p>
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                  {contact.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="text-sm text-text-accent hover:text-gold transition-colors tracking-wide border-b border-gold/20 hover:border-gold/50 pb-0.5"
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
 
           <p className="text-[11px] sm:text-xs text-text-muted/55 mt-3 sm:mt-4">
             © {new Date().getFullYear()} {footer.title}. Все права защищены.
