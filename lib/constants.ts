@@ -93,9 +93,9 @@ export const siteContent = {
     id: "audience",
     title: "Для кого этот день",
     items: [
-      "для женщин, которые хотят замедлиться и выйти из суеты",
+      "для тех, кто хочет замедлиться и выйти из суеты",
       "для тех, кто хочет восстановить контакт с собой",
-      "Для женщин, желающих научиться выбирать и чувствовать камни с мест силы, открывая в них источник опоры, энергии и личного послания.",
+      "Для тех, кто хочет научиться выбирать и чувствовать камни с мест силы",
       "для тех, кто хочет раскрыть чувствительность и мудрость",
       "для тех, кому близки места силы, тишина, природа и глубина",
       "Для тех, кто готов идти в глубину — к себе, своей силе и своей природе.",
@@ -140,8 +140,8 @@ export const siteContent = {
         href: "https://max.ru/join/jRcBOBVJiOuzQPDVbmEqc4mpZHK_8Lx7jvv8z5cCjtw",
       },
       {
-        label: "@OlgaSalikhowa",
-        href: "https://t.me/OlgaSalikhowa",
+        label: "@olgaslkhv",
+        href: "https://t.me/olgaslkhv",
       },
     ],
   },
@@ -157,7 +157,7 @@ export const siteContent = {
       { label: "Формат", value: "Однодневный женский ретрит" },
       { label: "Участие", value: "По предварительной записи" },
       { label: "Количество мест", value: "Ограничено" },
-      { label: "Стоимость", value: "3555" },
+      { label: "Стоимость", value: "3555 руб" },
     ],
     extras: {
       title: "Дополнительно",
@@ -218,7 +218,7 @@ export const siteContent = {
       {
         name: "Ольга Салихова",
         links: [
-          { label: "Telegram", href: "https://t.me/OlgaSalikhowa" },
+          { label: "Telegram", href: "https://t.me/olgaslkhv" },
           {
             label: "MAX",
             href: "https://max.ru/join/jRcBOBVJiOuzQPDVbmEqc4mpZHK_8Lx7jvv8z5cCjtw",
