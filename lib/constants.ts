@@ -242,22 +242,10 @@ export const siteContent = {
     subtitle: "Однодневный женский ретрит на территории Храма Параскевы Пятницы",
     location: "Воронежская область, село Хващевка",
     contactsTitle: "Контакты",
-    contacts: [
-      {
-        name: "Ольга Салихова",
-        links: [
-          { label: "Telegram", href: "https://t.me/olgaslkhv" },
-          {
-            label: "MAX",
-            href: "https://max.ru/join/jRcBOBVJiOuzQPDVbmEqc4mpZHK_8Lx7jvv8z5cCjtw",
-          },
-        ],
-      },
-      {
-        name: "Светлана Вятчина",
-        links: [{ label: "+7 910 247-38-53", href: "tel:+79102473853" }],
-      },
-    ],
+    contactsText:
+      "По всем организационным вопросам, связанным с участием и деталями мероприятия, пожалуйста, обращайтесь к Светлане Вятчиной тел",
+    contactsPhone: "+7 910 247-38-53",
+    contactsPhoneHref: "tel:+79102473853",
     privacyLabel: "Политика конфиденциальности",
     privacyHref: "/privacy",
   },
