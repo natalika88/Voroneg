@@ -17,9 +17,9 @@ export function Program() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 md:px-8">
         <SectionHeading title={program.title} />
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
+        <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
           {program.items.map((item, index) => (
-            <motion.div key={index} variants={staggerItem}>
+            <motion.div key={item.title} variants={staggerItem}>
               <PremiumCard className="group relative h-full">
                 <span
                   className="absolute top-4 right-5 sm:top-5 sm:right-6 font-display text-2xl sm:text-3xl text-gold/20 group-hover:text-gold/40 transition-colors duration-500"
@@ -27,8 +27,11 @@ export function Program() {
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="prose-body pr-8 sm:pr-10 group-hover:text-text transition-colors duration-500">
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                <h3 className="heading-serif text-lg sm:text-xl leading-snug pr-8 sm:pr-10 mb-3 sm:mb-4 group-hover:text-text transition-colors duration-500">
+                  {item.title}
+                </h3>
+                <p className="prose-body !text-sm sm:!text-[15px] group-hover:text-text transition-colors duration-500">
+                  {item.description}
                 </p>
               </PremiumCard>
             </motion.div>
