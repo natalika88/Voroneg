@@ -27,14 +27,15 @@ export function Footer() {
             </h3>
 
             <p className="text-sm sm:text-[15px] text-text-muted leading-[1.75]">
-              {footer.contactsText}{" "}
+              {footer.contactsText}
+              <br />
+              {footer.contactsName} тел{" "}
               <a
                 href={footer.contactsPhoneHref}
                 className="text-text-accent hover:text-gold transition-colors border-b border-gold/20 hover:border-gold/50 pb-0.5 whitespace-nowrap"
               >
                 {footer.contactsPhone}
               </a>
-              :
             </p>
           </div>
 
