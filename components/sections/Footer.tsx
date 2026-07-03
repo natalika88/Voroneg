@@ -42,6 +42,15 @@ export function Footer() {
           <p className="text-[11px] sm:text-xs text-text-muted/55 mt-3 sm:mt-4">
             © {new Date().getFullYear()} {footer.title}. Все права защищены.
           </p>
+
+          <a
+            href={footer.creatorHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] sm:text-xs text-text-muted/45 hover:text-text-accent transition-colors tracking-wide"
+          >
+            {footer.creatorLabel}
+          </a>
         </div>
       </div>
     </footer>

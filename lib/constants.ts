@@ -247,6 +247,8 @@ export const siteContent = {
     contactsName: "Светлане Вятчиной",
     contactsPhone: "+7 910 247-38-53",
     contactsPhoneHref: "tel:+79102473853",
+    creatorLabel: "Created by @Bagina_Natalia",
+    creatorHref: "https://t.me/Bagina_Natalia",
     privacyLabel: "Политика конфиденциальности",
     privacyHref: "/privacy",
   },
