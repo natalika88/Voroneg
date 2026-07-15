@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope, Lora } from "next/font/google";
 import { siteContent } from "@/lib/constants";
 import { FloatingContacts } from "@/components/ui/FloatingContacts";
+import { YandexMetrika } from "@/components/YandexMetrika";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className="min-h-screen overflow-x-hidden">
         {children}
         <FloatingContacts />
+        <YandexMetrika />
       </body>
     </html>
   );
